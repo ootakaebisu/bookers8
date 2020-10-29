@@ -1,0 +1,25 @@
+<h2>User info</h2>
+
+<%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><%= user.name %></td>
+    </tr>
+    <tr>
+      <td>introduction</td>
+      <td><%= user.introduction %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row field">
+  <% if user.id === current_user.id %>
+  <!--user部分テンプレート引数書いてなかったポイント-->
+    <%= link_to "", edit_user_path(current_user.id) , class: "btn btn-default col-xs-12" %>
+  <% else %>
+    <%= link_to "", user_path(current_user.id) , class: "btn btn-default col-xs-12" %>
+  <% end %>
+</div>

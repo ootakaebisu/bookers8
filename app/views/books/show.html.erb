@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+
+      <% if flash[:notice] %>
+        <div class="flash">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+    <div class="col-xs-3">
+      <%= render 'users/user_profile', user: @user %>
+      <%= render 'books/newbook', book: @book %>
+    </div>
+
+    <div class="col-xs-9">
+      <h2>Book detail</h2>
+
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@user) do %>
+                <%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %><br>
+                <%= @user.name %>
+              <% end %>
+            </td>
+            <td>
+              <!--book_pathの後引数いらないの?-->
+              <%= link_to @book_get.title, book_path %>
+            </td>
+            <td>
+              <%= @book_get.body %>
+            </td>
+            
+            <% if @book_get.user === current_user %>
+            <td>
+              <%= link_to "Edit", edit_book_path(@book_get), class: "btn-sm btn-success" %>
+            </td>
+            <td>
+              <!--リンク先@book_getだと消したページの引数にならない？どうせコントローラのほうで飛ぶじゃん-->
+              <%= link_to "Destroy", book_path(@book_get), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn-sm btn-danger" %>
+            </td>
+            <% end %>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
